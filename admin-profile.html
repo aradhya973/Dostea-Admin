@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSTEA Admin | Admin Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
+<style>
+.profile-shell{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);gap:20px}.profile-hero{position:relative;overflow:hidden;padding:30px;border:1px solid rgba(212,175,55,.25);border-radius:22px;background:radial-gradient(circle at 90% 10%,rgba(212,175,55,.16),transparent 34%),linear-gradient(145deg,#15130d,#0b0b0b 62%)}.profile-hero:after{content:"D";position:absolute;right:24px;bottom:-54px;font:700 210px/1 'Playfair Display',serif;color:rgba(212,175,55,.045)}.profile-identity{position:relative;z-index:1;display:flex;align-items:center;gap:22px}.profile-avatar-xl{width:98px;height:98px;display:grid;place-items:center;flex:0 0 auto;border-radius:28px;background:linear-gradient(145deg,#f1d66a,#a87908);color:#080808;font:700 38px 'Playfair Display',serif;box-shadow:0 16px 40px rgba(212,175,55,.2)}.profile-name{margin:7px 0 3px;font:600 clamp(26px,3vw,40px) 'Playfair Display',serif}.profile-email{color:#9d9d9d}.profile-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.profile-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid rgba(212,175,55,.23);border-radius:999px;background:rgba(212,175,55,.07);color:#e8ca62;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.profile-chip.online{color:#78dca0;border-color:rgba(75,210,128,.22);background:rgba(75,210,128,.07)}.profile-chip.online:before{content:"";width:6px;height:6px;border-radius:50%;background:#50d586;box-shadow:0 0 10px #50d586}.profile-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}.profile-stat{padding:16px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.025)}.profile-stat span{display:block;color:#888;font-size:10px;font-weight:700;letter-spacing:.1em}.profile-stat strong{display:block;margin-top:6px;color:#f0d778;font:600 24px 'Playfair Display',serif}.profile-panel{padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:#101010}.profile-panel+.profile-panel{margin-top:20px}.profile-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.profile-panel-head h3{margin:0;font:600 20px 'Playfair Display',serif}.profile-panel-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:rgba(212,175,55,.09);color:#d4af37}.profile-detail{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}.profile-detail:last-child{border-bottom:0}.profile-detail>i{width:18px;color:#d4af37;text-align:center}.profile-detail span{display:block;color:#777;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.profile-detail strong{display:block;margin-top:3px;color:#ddd;font-size:13px}.profile-edit-card{grid-column:1/-1;padding:26px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:#101010}.profile-form-heading{display:flex;align-items:center;gap:12px;margin-bottom:20px}.profile-form-heading i{color:#d4af37}.profile-form-heading h3{margin:0;font:600 21px 'Playfair Display',serif}.profile-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}@media(max-width:900px){.profile-shell{grid-template-columns:1fr}.profile-identity{align-items:flex-start}.profile-avatar-xl{width:80px;height:80px;border-radius:22px}.profile-stats{grid-template-columns:1fr}.profile-edit-card{grid-column:auto}}@media(max-width:560px){.profile-hero{padding:22px}.profile-identity{flex-direction:column}.profile-stats{grid-template-columns:repeat(3,1fr)}.profile-stat{padding:12px}.profile-stat strong{font-size:19px}.profile-stat span{font-size:8px}}
+</style>
+</head>
+<body>
+<div class="app-layout">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <a href="index.html">
+            <div class="brand-mark">D</div>
+            <div class="brand-copy">
+                <h1>DOSTEA</h1>
+                <span>ADMIN • CONTROL • CENTER</span>
+            </div>
+        </a>
+    </div>
+
+    <nav class="sidebar-navigation">
+        <span class="nav-label">ADMINISTRATION</span>
+        <a href="index.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+<span>Dashboard</span>
+</a><a href="admin-orders.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-bag-shopping"></i></span>
+<span>Orders</span>
+</a><a href="admin-reservations.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-calendar-check"></i></span>
+<span>Reservations</span>
+</a><a href="admin-customers.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+<span>Customers</span>
+</a><a href="admin-menu.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-utensils"></i></span>
+<span>Menu Management</span>
+</a><a href="admin-enquiries.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-envelope"></i></span>
+<span>Enquiries</span>
+</a><a href="admin-analytics.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+<span>Analytics</span>
+</a><a href="admin-profile.html" class="nav-link active">
+<span class="nav-icon"><i class="fa-regular fa-user"></i></span>
+<span>Admin Profile</span>
+</a>
+    </nav>
+
+    <div class="sidebar-user">
+        <div class="user-avatar" id="sidebarAdminAvatar">A</div>
+        <div class="user-details">
+            <strong id="sidebarAdminName">DOSTEA Admin</strong>
+            <span id="sidebarAdminRole">Administrator</span>
+        </div>
+        <button class="sidebar-logout" id="sidebarLogout" type="button" aria-label="Sign out">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+    </div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="page-location">DOSTEA ADMIN / <span>Admin Profile</span></div>
+    </div>
+
+    <div class="topbar-actions">
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE DATABASE</span>
+        </div>
+        <button class="icon-button" id="refreshPageBtn" type="button" aria-label="Refresh">
+            <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <a class="top-profile" href="admin-profile.html">
+            <div class="top-profile-avatar" id="topAdminAvatar">A</div>
+            <div class="top-profile-copy">
+                <strong id="topAdminName">DOSTEA Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </a>
+    </div>
+</header>
+
+<div class="page-content">
+
+<section class="admin-page-header">
+    <div>
+        <span class="admin-eyebrow">ADMIN ACCOUNT</span>
+        <h1>Admin Profile</h1>
+        <p>Manage your identity, account information and administrative access.</p>
+    </div>
+</section>
+
+<div class="profile-shell">
+    <section class="profile-hero">
+        <div class="profile-identity">
+            <div class="profile-avatar-xl" id="profileHeroAvatar">A</div>
+            <div>
+                <span class="admin-eyebrow">DOSTEA CONTROL CENTER</span>
+                <h2 class="profile-name" id="profileHeroName">DOSTEA Admin</h2>
+                <div class="profile-email" id="profileHeroEmail">Loading account...</div>
+                <div class="profile-badges">
+                    <span class="profile-chip" id="profileHeroRole"><i class="fa-solid fa-shield-halved"></i> Administrator</span>
+                    <span class="profile-chip online">Active account</span>
+                </div>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="profile-stat"><span>ORDERS</span><strong id="profileOrderCount">0</strong></div>
+            <div class="profile-stat"><span>RESERVATIONS</span><strong id="profileReservationCount">0</strong></div>
+            <div class="profile-stat"><span>MEMBER SINCE</span><strong id="profileMemberYear">—</strong></div>
+        </div>
+    </section>
+
+    <div>
+        <section class="profile-panel">
+            <div class="profile-panel-head"><h3>Account Overview</h3><span class="profile-panel-icon"><i class="fa-regular fa-id-card"></i></span></div>
+            <div class="profile-detail"><i class="fa-regular fa-envelope"></i><div><span>Email address</span><strong id="profileOverviewEmail">—</strong></div></div>
+            <div class="profile-detail"><i class="fa-solid fa-user-shield"></i><div><span>Access level</span><strong id="profileOverviewRole">—</strong></div></div>
+            <div class="profile-detail"><i class="fa-regular fa-clock"></i><div><span>Last sign in</span><strong id="profileLastSignIn">—</strong></div></div>
+        </section>
+    </div>
+
+    <section class="profile-edit-card">
+        <div class="profile-form-heading"><i class="fa-regular fa-pen-to-square"></i><h3>Edit Profile Information</h3></div>
+        <form id="adminProfileForm">
+            <div class="admin-form-grid">
+                <div class="field"><label>FULL NAME</label><input class="form-control" id="profileName" required></div>
+                <div class="field"><label>EMAIL ADDRESS</label><input class="form-control" id="profileEmail" disabled></div>
+                <div class="field"><label>ROLE</label><input class="form-control" id="profileRole" disabled></div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk"></i> Save Changes</button>
+                <button class="btn btn-danger" id="profileLogout" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+</div>
+</main>
+</div>
+
+<div class="toast" id="adminToast">
+    <i class="fa-solid fa-bell"></i>
+    <div>
+        <strong id="toastTitle">DOSTEA Admin</strong>
+        <span id="toastText">Updated.</span>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="admin-common.js"></script>
+<script src="profile.js"></script>
+</body>
+</html>

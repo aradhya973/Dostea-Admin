@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSTEA Admin | Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="auth-page">
+    <section class="auth-visual">
+        <a href="admin-login.html" class="auth-brand">
+            <div class="brand-mark">D</div>
+            <div class="brand-copy">
+                <h1>DOSTEA</h1>
+                <span>ADMIN • CONTROL • CENTER</span>
+            </div>
+        </a>
+
+        <div class="auth-visual-content">
+            <span class="auth-kicker">AUTHORIZED OPERATIONS</span>
+            <h1>Run DOSTEA.<em>Behind the counter.</em></h1>
+            <p>
+                A dedicated administration workspace for live orders,
+                reservations, customers, menu operations and business insights.
+            </p>
+            <div class="auth-visual-tags">
+                <span class="auth-tag"><i class="fa-solid fa-bag-shopping"></i>&nbsp; Live Orders</span>
+                <span class="auth-tag"><i class="fa-regular fa-calendar-check"></i>&nbsp; Reservations</span>
+                <span class="auth-tag"><i class="fa-solid fa-chart-line"></i>&nbsp; Analytics</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-form-side">
+        <div class="auth-card">
+            <span class="auth-kicker">ADMIN ACCESS</span>
+            <h2>Welcome back.</h2>
+            <p>Sign in with an account registered as a DOSTEA administrator.</p>
+
+            <form class="auth-form" id="adminLoginForm">
+                <div class="auth-field">
+                    <label for="adminEmail">EMAIL ADDRESS</label>
+                    <div class="auth-input">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input id="adminEmail" type="email" autocomplete="email" placeholder="Enter admin email" required>
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="adminPassword">PASSWORD</label>
+                    <div class="auth-input">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+                        <button class="password-toggle" id="passwordToggle" type="button" aria-label="Show password">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="auth-submit" id="adminLoginButton" type="submit">
+                    <span>Enter Admin Dashboard</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <div class="auth-message" id="loginMessage"></div>
+            </form>
+
+            <div class="auth-security">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>
+                    Access is verified using Supabase Auth and the protected
+                    DOSTEA administrators table.
+                </span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="admin-login.js"></script>
+</body>
+</html>

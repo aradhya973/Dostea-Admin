@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSTEA Admin | Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="app-layout">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <a href="index.html">
+            <div class="brand-mark">D</div>
+            <div class="brand-copy">
+                <h1>DOSTEA</h1>
+                <span>ADMIN • CONTROL • CENTER</span>
+            </div>
+        </a>
+    </div>
+
+    <nav class="sidebar-navigation">
+        <span class="nav-label">ADMINISTRATION</span>
+        <a href="index.html" class="nav-link active">
+<span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+<span>Dashboard</span>
+</a><a href="admin-orders.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-bag-shopping"></i></span>
+<span>Orders</span>
+</a><a href="admin-reservations.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-calendar-check"></i></span>
+<span>Reservations</span>
+</a><a href="admin-customers.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+<span>Customers</span>
+</a><a href="admin-menu.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-utensils"></i></span>
+<span>Menu Management</span>
+</a><a href="admin-enquiries.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-envelope"></i></span>
+<span>Enquiries</span>
+</a><a href="admin-analytics.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+<span>Analytics</span>
+</a><a href="admin-profile.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-user"></i></span>
+<span>Admin Profile</span>
+</a>
+    </nav>
+
+    <div class="sidebar-user">
+        <div class="user-avatar" id="sidebarAdminAvatar">A</div>
+        <div class="user-details">
+            <strong id="sidebarAdminName">DOSTEA Admin</strong>
+            <span id="sidebarAdminRole">Administrator</span>
+        </div>
+        <button class="sidebar-logout" id="sidebarLogout" type="button" aria-label="Sign out">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+    </div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="page-location">DOSTEA ADMIN / <span>Dashboard</span></div>
+    </div>
+
+    <div class="topbar-actions">
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE DATABASE</span>
+        </div>
+        <button class="icon-button" id="refreshPageBtn" type="button" aria-label="Refresh">
+            <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <a class="top-profile" href="admin-profile.html">
+            <div class="top-profile-avatar" id="topAdminAvatar">A</div>
+            <div class="top-profile-copy">
+                <strong id="topAdminName">DOSTEA Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </a>
+    </div>
+</header>
+
+<div class="page-content">
+
+<section class="admin-page-header">
+    <div>
+        <span class="admin-eyebrow">ADMIN DASHBOARD</span>
+        <h1>Today at DOSTEA.</h1>
+        <p>Live operational overview from the same Supabase database used by the customer website.</p>
+    </div>
+    <div class="admin-header-actions">
+        <button class="btn" id="dashboardRefresh" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    </div>
+</section>
+
+<section class="admin-stats">
+    <article class="admin-stat-card">
+        <div class="admin-stat-icon"><i class="fa-solid fa-receipt"></i></div>
+        <div class="admin-stat-copy"><span>TODAY'S ORDERS</span><strong id="todayOrders">0</strong></div>
+    </article>
+    <article class="admin-stat-card">
+        <div class="admin-stat-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+        <div class="admin-stat-copy"><span>TODAY'S REVENUE</span><strong id="todayRevenue">₹0</strong></div>
+    </article>
+    <article class="admin-stat-card">
+        <div class="admin-stat-icon"><i class="fa-regular fa-clock"></i></div>
+        <div class="admin-stat-copy"><span>PENDING ORDERS</span><strong id="pendingOrders">0</strong></div>
+    </article>
+    <article class="admin-stat-card">
+        <div class="admin-stat-icon"><i class="fa-regular fa-calendar-check"></i></div>
+        <div class="admin-stat-copy"><span>RESERVATION QUEUE</span><strong id="pendingReservations">0</strong></div>
+    </article>
+</section>
+
+<section class="admin-grid">
+    <div class="admin-panel">
+        <div class="admin-panel-header">
+            <div><span>LIVE ORDERS</span><h3>Recent Orders</h3></div>
+            <a href="admin-orders.html" class="btn">View All</a>
+        </div>
+        <div class="table-wrap" id="dashboardOrders"></div>
+    </div>
+
+    <aside class="admin-panel">
+        <div class="admin-panel-header">
+            <div><span>RESERVATIONS</span><h3>Pending Requests</h3></div>
+            <a href="admin-reservations.html" class="btn">Manage</a>
+        </div>
+        <div class="admin-panel-body" id="dashboardReservations"></div>
+    </aside>
+</section>
+
+</div>
+</main>
+</div>
+
+<div class="toast" id="adminToast">
+    <i class="fa-solid fa-bell"></i>
+    <div>
+        <strong id="toastTitle">DOSTEA Admin</strong>
+        <span id="toastText">Updated.</span>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="admin-common.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

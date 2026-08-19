@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSTEA Admin | Menu Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="app-layout">
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <a href="index.html">
+            <div class="brand-mark">D</div>
+            <div class="brand-copy">
+                <h1>DOSTEA</h1>
+                <span>ADMIN • CONTROL • CENTER</span>
+            </div>
+        </a>
+    </div>
+
+    <nav class="sidebar-navigation">
+        <span class="nav-label">ADMINISTRATION</span>
+        <a href="index.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+<span>Dashboard</span>
+</a><a href="admin-orders.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-bag-shopping"></i></span>
+<span>Orders</span>
+</a><a href="admin-reservations.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-calendar-check"></i></span>
+<span>Reservations</span>
+</a><a href="admin-customers.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+<span>Customers</span>
+</a><a href="admin-menu.html" class="nav-link active">
+<span class="nav-icon"><i class="fa-solid fa-utensils"></i></span>
+<span>Menu Management</span>
+</a><a href="admin-enquiries.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-envelope"></i></span>
+<span>Enquiries</span>
+</a><a href="admin-analytics.html" class="nav-link">
+<span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+<span>Analytics</span>
+</a><a href="admin-profile.html" class="nav-link">
+<span class="nav-icon"><i class="fa-regular fa-user"></i></span>
+<span>Admin Profile</span>
+</a>
+    </nav>
+
+    <div class="sidebar-user">
+        <div class="user-avatar" id="sidebarAdminAvatar">A</div>
+        <div class="user-details">
+            <strong id="sidebarAdminName">DOSTEA Admin</strong>
+            <span id="sidebarAdminRole">Administrator</span>
+        </div>
+        <button class="sidebar-logout" id="sidebarLogout" type="button" aria-label="Sign out">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+    </div>
+</aside>
+
+<main class="main-content">
+
+<header class="topbar">
+    <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="page-location">DOSTEA ADMIN / <span>Menu Management</span></div>
+    </div>
+
+    <div class="topbar-actions">
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE DATABASE</span>
+        </div>
+        <button class="icon-button" id="refreshPageBtn" type="button" aria-label="Refresh">
+            <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <a class="top-profile" href="admin-profile.html">
+            <div class="top-profile-avatar" id="topAdminAvatar">A</div>
+            <div class="top-profile-copy">
+                <strong id="topAdminName">DOSTEA Admin</strong>
+                <span>Administrator</span>
+            </div>
+        </a>
+    </div>
+</header>
+
+<div class="page-content">
+
+<section class="admin-page-header">
+    <div>
+        <span class="admin-eyebrow">MENU OPERATIONS</span>
+        <h1>Menu Management</h1>
+        <p>Add, edit and control availability for menu items stored in the Supabase menu_items table.</p>
+    </div>
+    <button class="btn btn-primary" id="newMenuItem" type="button"><i class="fa-solid fa-plus"></i> Add Item</button>
+</section>
+
+<div class="admin-toolbar">
+    <div class="admin-tabs" id="menuTabs">
+        <button class="admin-tab active" data-category="all" type="button">All</button>
+        <button class="admin-tab" data-category="cafe" type="button">Café</button>
+        <button class="admin-tab" data-category="restaurant" type="button">Restaurant</button>
+        <button class="admin-tab" data-category="dessert" type="button">Desserts</button>
+    </div>
+    <div class="admin-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input class="form-control" id="menuSearch" placeholder="Search menu item">
+    </div>
+</div>
+
+<div class="menu-admin-grid" id="menuAdminGrid"></div>
+
+<div class="admin-modal" id="menuModal">
+    <div class="admin-modal-card">
+        <div class="modal-header">
+            <div><span>MENU ITEM</span><h2 id="menuModalTitle">Add Item</h2></div>
+            <button class="modal-close" id="closeMenuModal" type="button"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="menuForm">
+                <input type="hidden" id="menuId">
+                <div class="admin-form-grid">
+                    <div class="field"><label>ITEM NAME</label><input class="form-control" id="menuName" required></div>
+                    <div class="field"><label>PRICE</label><input class="form-control" id="menuPrice" type="number" min="0" required></div>
+                    <div class="field"><label>CATEGORY</label>
+                        <select class="form-control" id="menuCategory">
+                            <option value="cafe">Café</option>
+                            <option value="restaurant">Restaurant</option>
+                            <option value="dessert">Dessert</option>
+                        </select>
+                    </div>
+                    <div class="field"><label>AVAILABLE</label>
+                        <select class="form-control" id="menuAvailable">
+                            <option value="true">Available</option>
+                            <option value="false">Unavailable</option>
+                        </select>
+                    </div>
+                    <div class="field" style="grid-column:1/-1"><label>DESCRIPTION</label><textarea class="form-control" id="menuDescription"></textarea></div>
+                    <div class="field" style="grid-column:1/-1"><label>IMAGE URL</label><input class="form-control" id="menuImageUrl" placeholder="Optional image URL"></div>
+                </div>
+                <div style="margin-top:16px"><button class="btn btn-primary" type="submit">Save Menu Item</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</main>
+</div>
+
+<div class="toast" id="adminToast">
+    <i class="fa-solid fa-bell"></i>
+    <div>
+        <strong id="toastTitle">DOSTEA Admin</strong>
+        <span id="toastText">Updated.</span>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="admin-common.js"></script>
+<script src="menu.js"></script>
+</body>
+</html>
