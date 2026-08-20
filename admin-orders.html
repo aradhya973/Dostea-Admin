@@ -136,6 +136,36 @@
                 <div class="detail-box"><span>PAYMENT</span><strong id="modalPayment">—</strong></div>
                 <div class="detail-box"><span>STATUS</span><strong id="modalStatus">—</strong></div>
             </div>
+
+            <div class="detail-box" id="tableAssignmentBox" style="margin-bottom:14px;">
+                <span>ASSIGN TABLE</span>
+
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;">
+                    <select id="adminTableSelect" class="form-control" style="max-width:220px;">
+                        <option value="">Select Table</option>
+                        <option value="Table 1">Table 1</option>
+                        <option value="Table 2">Table 2</option>
+                        <option value="Table 3">Table 3</option>
+                        <option value="Table 4">Table 4</option>
+                        <option value="Table 5">Table 5</option>
+                        <option value="Table 6">Table 6</option>
+                        <option value="Table 7">Table 7</option>
+                        <option value="Table 8">Table 8</option>
+                        <option value="Table 9">Table 9</option>
+                        <option value="Table 10">Table 10</option>
+                    </select>
+
+                    <button type="button" class="btn btn-primary" id="assignTableBtn">
+                        <i class="fa-solid fa-chair"></i>
+                        Assign Table
+                    </button>
+                </div>
+
+                <span id="tableAssignmentNote" style="display:block;margin-top:7px;color:#777168;font-size:8px;">
+                    Dine-In orders can be assigned a table.
+                </span>
+            </div>
+
             <div id="modalOrderItems"></div>
             <div style="display:flex;justify-content:space-between;margin-top:15px;padding-top:14px;border-top:1px solid var(--border)">
                 <span style="color:#777168;font-size:9px">ORDER TOTAL</span>

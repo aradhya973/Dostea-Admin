@@ -119,6 +119,21 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("modalStatus").textContent=window.dosteaStatus(selected.status);
         document.getElementById("modalOrderTotal").textContent=window.dosteaMoney(selected.total);
 
+        const tableSelect=document.getElementById("adminTableSelect");
+        const assignTableBtn=document.getElementById("assignTableBtn");
+        const tableAssignmentNote=document.getElementById("tableAssignmentNote");
+        const isDineIn=selected.order_type==="dine-in";
+
+        tableSelect.value=selected.table_number || "";
+        tableSelect.disabled=!isDineIn;
+        assignTableBtn.disabled=!isDineIn;
+
+        tableAssignmentNote.textContent=isDineIn
+            ? (selected.table_number
+                ? `Currently assigned: ${selected.table_number}`
+                : "No table assigned yet.")
+            : "Table assignment is not applicable for Takeaway orders.";
+
         document.getElementById("modalOrderItems").innerHTML =
             selected.items?.length
                 ? selected.items.map(i=>`
@@ -152,6 +167,54 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.remove("modal-open");
     }
 
+    async function assignTable() {
+        if(!selected) return;
+
+        if(selected.order_type!=="dine-in"){
+            window.dosteaToast?.(
+                "Table Assignment",
+                "Table can only be assigned to Dine-In orders."
+            );
+            return;
+        }
+
+        const tableNumber=
+            document.getElementById("adminTableSelect").value;
+
+        if(!tableNumber){
+            window.dosteaToast?.(
+                "Select Table",
+                "Please select a table before assigning."
+            );
+            return;
+        }
+
+        const {error}=await window.supabaseClient
+            .from("orders")
+            .update({
+                table_number:tableNumber,
+                updated_at:new Date().toISOString()
+            })
+            .eq("id",selected.id);
+
+        if(error){
+            window.dosteaToast?.("Table Assignment Failed",error.message);
+            return;
+        }
+
+        selected.table_number=tableNumber;
+
+        document.getElementById("tableAssignmentNote").textContent=
+            `Currently assigned: ${tableNumber}`;
+
+        window.dosteaToast?.(
+            "Table Assigned",
+            `${tableNumber} assigned to order ${selected.order_number}.`
+        );
+
+        loadOrders();
+    }
+
     async function updateStatus(id,status) {
         const {error}=await window.supabaseClient
             .from("orders")
@@ -182,6 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
         render();
     });
 
+    document.getElementById("assignTableBtn").addEventListener("click",assignTable);
     document.getElementById("closeOrderModal").addEventListener("click",closeModal);
     modal.addEventListener("click",e=>{if(e.target===modal) closeModal();});
     window.addEventListener("dostea-admin-refresh",loadOrders);
