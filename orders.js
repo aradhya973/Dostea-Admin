@@ -227,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         window.dosteaToast?.("Order Updated",`Order moved to ${window.dosteaStatus(status)}.`);
+        window.dosteaSendNotification?.("order_status",id);
         closeModal();
         loadOrders();
     }

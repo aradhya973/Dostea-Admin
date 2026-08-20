@@ -9,6 +9,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     const overlay = document.getElementById("sidebarOverlay");
     const mobileBtn = document.getElementById("mobileMenuBtn");
 
+    const navigation=document.querySelector(".sidebar-navigation");
+    const profileLink=navigation?.querySelector('[href="admin-profile.html"]');
+    const currentPage=location.pathname.split("/").pop()||"index.html";
+    [
+        ["admin-promotions.html","fa-solid fa-tags","Promotions"],
+        ["admin-activity.html","fa-solid fa-clock-rotate-left","Activity Log"]
+    ].forEach(([href,icon,label])=>{
+        if(!navigation || navigation.querySelector(`[href="${href}"]`)) return;
+        const link=document.createElement("a");
+        link.href=href;
+        link.className=`nav-link${currentPage===href?" active":""}`;
+        link.innerHTML=`<span class="nav-icon"><i class="${icon}"></i></span><span>${label}</span>`;
+        navigation.insertBefore(link,profileLink||null);
+    });
+
     mobileBtn?.addEventListener("click", function () {
         sidebar?.classList.add("open");
         overlay?.classList.add("active");

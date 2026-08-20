@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const {data,error}=await window.supabaseClient
             .from("reservations")
-            .select("id,reservation_number,user_id,customer_name,customer_email,phone,reservation_date,reservation_time,guests,seating_preference,special_request,status,created_at,updated_at")
+            .select("id,reservation_number,user_id,customer_name,customer_email,phone,reservation_date,reservation_time,guests,seating_preference,special_request,table_number,status,created_at,updated_at")
             .order("created_at",{ascending:false});
 
         if(error){
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <span class="cell-sub">${window.dosteaSafe(r.customer_email||"")} • ${window.dosteaSafe(r.phone||"")}</span></td>
                         <td>${window.dosteaSafe(r.reservation_date)}<br><span class="cell-sub">${window.dosteaSafe(r.reservation_time)}</span></td>
                         <td>${Number(r.guests||0)}</td>
-                        <td>${window.dosteaSafe(r.seating_preference||"—")}</td>
+                        <td>${window.dosteaSafe(r.seating_preference||"—")}<br><span class="cell-sub">Table ${window.dosteaSafe(r.table_number||"pending")}</span></td>
                         <td>${window.dosteaStatusPill(r.status)}</td>
                         <td><div class="table-actions">
                             ${r.status==="pending" ? `
@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         window.dosteaToast?.("Reservation Updated",`Reservation is now ${window.dosteaStatus(status)}.`);
+        window.dosteaSendNotification?.("reservation_status",id);
         loadReservations();
     }
 

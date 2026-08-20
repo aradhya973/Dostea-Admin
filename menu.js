@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const {data,error}=await window.supabaseClient
             .from("menu_items")
-            .select("id,name,category,description,price,image_url,is_available,is_featured,created_at,updated_at")
+            .select("id,slug,name,category,description,price,image_url,is_available,is_featured,stock_quantity,low_stock_threshold,created_at,updated_at")
             .order("created_at",{ascending:false});
 
         if(error){
@@ -50,7 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p>${window.dosteaSafe(i.description||"No description added.")}</p>
                     <div class="menu-admin-meta">
                         <span class="menu-admin-price">${window.dosteaMoney(i.price)}</span>
-                        ${i.is_available
+                        <span class="status-pill ${Number(i.stock_quantity||0) <= Number(i.low_stock_threshold||0) ? "status-pending" : "status-ready"}">
+                            Stock: ${Number(i.stock_quantity||0)}
+                        </span>
+                        ${i.is_available && Number(i.stock_quantity||0) > 0
                             ? '<span class="status-pill status-ready">Available</span>'
                             : '<span class="status-pill status-cancelled">Unavailable</span>'}
                     </div>
@@ -90,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("menuPrice").value=item.price||0;
         document.getElementById("menuCategory").value=String(item.category||"cafe").toLowerCase();
         document.getElementById("menuAvailable").value=String(Boolean(item.is_available));
+        document.getElementById("menuStock").value=Number(item.stock_quantity||0);
+        document.getElementById("menuLowStock").value=Number(item.low_stock_threshold||0);
         document.getElementById("menuDescription").value=item.description||"";
         document.getElementById("menuImageUrl").value=item.image_url||"";
 
@@ -103,6 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function toggleItem(id,value){
+        const item=cache.find(row=>String(row.id)===String(id));
+        if(value && Number(item?.stock_quantity||0) <= 0){
+            window.dosteaToast?.("Stock Required","Add stock before enabling this item.");
+            return;
+        }
         const {error}=await window.supabaseClient
             .from("menu_items")
             .update({is_available:value,updated_at:new Date().toISOString()})
@@ -124,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const menuName =
     document.getElementById("menuName").value.trim();
 
+const stockQuantity = Math.max(0, Number(document.getElementById("menuStock").value || 0));
 const payload = {
     name: menuName,
 
@@ -140,7 +151,11 @@ const payload = {
         document.getElementById("menuCategory").value,
 
     is_available:
-        document.getElementById("menuAvailable").value === "true",
+        stockQuantity > 0 && document.getElementById("menuAvailable").value === "true",
+
+    stock_quantity: stockQuantity,
+
+    low_stock_threshold: Math.max(0, Number(document.getElementById("menuLowStock").value || 0)),
 
     description:
         document.getElementById("menuDescription").value.trim(),
@@ -188,5 +203,12 @@ const payload = {
     });
 
     window.addEventListener("dostea-admin-refresh",loadMenu);
-    waitForAdmin().then(ok=>{if(ok) loadMenu();});
+    waitForAdmin().then(ok=>{
+        if(!ok) return;
+        loadMenu();
+        window.supabaseClient
+            .channel("dostea-admin-menu-page")
+            .on("postgres_changes",{event:"*",schema:"public",table:"menu_items"},loadMenu)
+            .subscribe();
+    });
 });

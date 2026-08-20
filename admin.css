@@ -1573,3 +1573,18 @@ textarea::placeholder { font-size: 12px; }
     select,
     textarea { font-size: 13px; }
 }
+.analytics-toolbar{display:flex;align-items:flex-end;justify-content:flex-end;gap:10px;flex-wrap:wrap}.analytics-toolbar label{display:grid;gap:5px;font-size:9px;font-weight:800;letter-spacing:.09em}.analytics-toolbar .form-control{min-width:145px}.revenue-bars{display:flex;align-items:flex-end;gap:8px;height:230px;padding-top:20px;overflow-x:auto}.revenue-bar-item{display:flex;flex:1 0 38px;min-width:38px;height:100%;align-items:center;justify-content:flex-end;flex-direction:column;gap:7px}.revenue-bar{width:100%;min-height:2px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#f4cf45,#93812c)}.revenue-bar-item span{font-size:8px;white-space:nowrap;opacity:.65}.revenue-bar-item strong{font-size:8px;white-space:nowrap}.analytics-list{display:grid;gap:10px}.analytics-list-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;padding:10px 0;border-bottom:1px solid rgba(128,128,128,.14)}.analytics-list-row:last-child{border:0}@media(max-width:760px){.analytics-toolbar{justify-content:flex-start}.analytics-toolbar label{width:calc(50% - 5px)}.analytics-toolbar .form-control{min-width:0}.analytics-grid{grid-template-columns:1fr}}
+
+/* Keep every admin page's sidebar navigation scrollable without a visible bar. */
+.sidebar,
+.sidebar-navigation {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar,
+.sidebar-navigation::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}

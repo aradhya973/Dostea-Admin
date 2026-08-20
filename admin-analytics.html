@@ -102,6 +102,12 @@
         <h1>Analytics</h1>
         <p>Live summary calculated from customer orders and reservation activity.</p>
     </div>
+    <div class="analytics-toolbar">
+        <label>From <input class="form-control" id="analyticsFrom" type="date"></label>
+        <label>To <input class="form-control" id="analyticsTo" type="date"></label>
+        <button class="btn" id="exportCsv" type="button"><i class="fa-solid fa-file-csv"></i> CSV</button>
+        <button class="btn btn-primary" id="exportPdf" type="button"><i class="fa-regular fa-file-pdf"></i> PDF</button>
+    </div>
 </section>
 
 <section class="admin-stats">
@@ -121,6 +127,17 @@
         <div class="admin-stat-icon"><i class="fa-regular fa-calendar-check"></i></div>
         <div class="admin-stat-copy"><span>RESERVATIONS</span><strong id="analyticsReservations">0</strong></div>
     </article>
+</section>
+
+<section class="analytics-grid">
+    <div class="admin-panel">
+        <div class="admin-panel-header"><div><span>SALES TREND</span><h3>Daily Revenue</h3></div></div>
+        <div class="admin-panel-body" id="dailyRevenue"></div>
+    </div>
+    <div class="admin-panel">
+        <div class="admin-panel-header"><div><span>BEST SELLERS</span><h3>Top Menu Items</h3></div></div>
+        <div class="admin-panel-body" id="topProducts"></div>
+    </div>
 </section>
 
 <section class="analytics-grid">
@@ -149,6 +166,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="admin-common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <script src="analytics.js"></script>
 </body>
 </html>
