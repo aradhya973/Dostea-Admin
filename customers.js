@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const [{data:profiles,error:pError},{data:orders,error:oError},{data:reservations,error:rError}] =
             await Promise.all([
                 window.supabaseClient.from("profiles")
-                    .select("id,full_name,phone,city,avatar_url,created_at,updated_at")
+                    .select("id,full_name,email,phone,city,avatar_url,created_at,updated_at")
                     .order("created_at",{ascending:false}),
                 window.supabaseClient.from("orders")
                     .select("user_id,customer_email,total,status"),
@@ -37,10 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const userOrders=orderRows.filter(o=>o.user_id===p.id);
             const userReservations=reservationRows.filter(r=>r.user_id===p.id);
 
-            const email =
-                userOrders.find(o=>o.customer_email)?.customer_email ||
-                userReservations.find(r=>r.customer_email)?.customer_email ||
-                "";
+            const email = p.email || "";
 
             return {
                 ...p,
