@@ -168,12 +168,25 @@ const payload = {
 
         let result;
 
-        if(id){
-            result=await window.supabaseClient.from("menu_items").update(payload).eq("id",id);
-        } else {
-            result=await window.supabaseClient.from("menu_items").insert(payload);
-        }
+        if (id) {
 
+    // EDIT करताना category update करू नको
+    const updatePayload = { ...payload };
+    delete updatePayload.category;
+
+    result = await window.supabaseClient
+        .from("menu_items")
+        .update(updatePayload)
+        .eq("id", id);
+
+} else {
+
+    // नवीन item add करताना category आवश्यक आहे
+    result = await window.supabaseClient
+        .from("menu_items")
+        .insert(payload);
+
+}
         if(result.error){
             window.dosteaToast?.("Menu Save Failed",result.error.message);
             return;
